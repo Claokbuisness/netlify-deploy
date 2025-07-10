@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    async function redirectToLink() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const id = window.location.pathname.split("/").pop().replace(".html", "");
+      try {
+        const response = await fetch(`/public/orders/${id}.json`);
+        const data = await response.json();
+        if (data.redirect_url) {
+          window.location.href = data.redirect_url;
+        } else {
+          document.body.innerText = "No redirect URL found.";
+        }
+      } catch (e) {
+        document.body.innerText = "Error loading redirect.";
+        console.error(e);
+      }
+    }
+    redirectToLink();
+  </script>
+</head>
+<body>
+  Redirecting...
+</body>
+</html>
