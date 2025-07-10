@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Redirecting...</title>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const redirectTo = urlParams.get("to");
+      if (redirectTo) {
+        window.location.href = redirectTo;
+      } else {
+        document.write("Missing 'to' parameter in URL.");
+      }
+    </script>
+  </head>
+  <body>
+    <p>Redirecting...</p>
+  </body>
+</html>
