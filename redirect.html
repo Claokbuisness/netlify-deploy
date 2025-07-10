@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    (async () => {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
+      if (!id) {
+        document.body.innerText = "Missing 'id' parameter.";
+        return;
+      }
+
+      try {
+        const response = await fetch(`/orders/${id}.json`);
+        if (!response.ok) throw new Error("File not found");
+        const data = await response.json();
+
+        if (data.redirect_link) {
+          window.location.href = data.redirect_link;
+        } else {
+          document.body.innerText = "No redirect_link in JSON.";
+        }
+      } catch (err) {
+        document.body.innerText = `Redirect failed: ${err.message}`;
+      }
+    })();
+  </script>
+</head>
+<body>
+  Redirecting...
+</body>
+</html>
